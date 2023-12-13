@@ -1,4 +1,4 @@
-package com.example.bookbti.dto;
+package com.example.bookbti.dto.answer;
 
 import com.example.bookbti.entity.Answer;
 import lombok.Builder;

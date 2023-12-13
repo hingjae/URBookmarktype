@@ -1,5 +1,6 @@
-package com.example.bookbti.dto;
+package com.example.bookbti.dto.question;
 
+import com.example.bookbti.dto.answer.AnswerResponse;
 import com.example.bookbti.entity.Question;
 import lombok.Builder;
 import lombok.Getter;
