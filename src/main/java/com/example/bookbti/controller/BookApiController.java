@@ -19,10 +19,11 @@ public class BookApiController {
 
     @PostMapping
     public ResponseEntity<Long> saveBook(@RequestBody SaveBookRequest request) {
-        Long bookId = bookService.saveBook(request);
+        Long bookId = bookService.saveBook(request).getId();
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(bookId);
     }
+
 
     @GetMapping("/{bookId}")
     public ResponseEntity<BookResponse> getBookById(@PathVariable Long bookId) {

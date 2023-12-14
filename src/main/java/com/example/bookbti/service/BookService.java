@@ -2,6 +2,7 @@ package com.example.bookbti.service;
 
 import com.example.bookbti.dto.book.BookResponse;
 import com.example.bookbti.dto.book.SaveBookRequest;
+import com.example.bookbti.entity.Book;
 import com.example.bookbti.repository.BookRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -17,9 +19,20 @@ public class BookService {
     private final BookRepository bookRepository;
 
     @Transactional
-    public Long saveBook(SaveBookRequest request) {
-        return bookRepository.save(request.toEntity())
-                .getId();
+    public Book saveBook(SaveBookRequest request) {
+//        return bookRepository.findByTitleAndIsbn(request.getTitle(), request.getIsbn())
+//                .orElse(
+//                        //DB에 없으면 저장
+//                        bookRepository.save(request.toEntity())
+//                );
+        Optional<Book> bookOptional = bookRepository.findByTitleAndIsbn(request.getTitle(), request.getIsbn());
+
+        if (bookOptional.isEmpty()) {
+            Book savedBook = bookRepository.save(request.toEntity());
+            return savedBook;
+        } else {
+            return bookOptional.get();
+        }
     }
 
     @Transactional(readOnly = true)

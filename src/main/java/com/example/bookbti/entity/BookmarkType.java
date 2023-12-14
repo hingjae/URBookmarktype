@@ -14,7 +14,8 @@ public class BookmarkType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false) private String name;
-    @Column(nullable = false) private String content;
+    @Column(nullable = false, unique = true) private String typeCode;
+    @Column(nullable = false) private String nickname;
+    @Column(nullable = false) private String description;
     @Column(nullable = false) private String imageUrl;
 }
