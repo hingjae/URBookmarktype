@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class SaveTestResultRequest {
-    private String typeCode;
+    private Long resultTypeId;
     private String bookTitle;
     private String bookPageUrl;
     private String bookImageUrl;

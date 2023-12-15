@@ -20,19 +20,8 @@ public class BookService {
 
     @Transactional
     public Book saveBook(SaveBookRequest request) {
-//        return bookRepository.findByTitleAndIsbn(request.getTitle(), request.getIsbn())
-//                .orElse(
-//                        //DB에 없으면 저장
-//                        bookRepository.save(request.toEntity())
-//                );
-        Optional<Book> bookOptional = bookRepository.findByTitleAndIsbn(request.getTitle(), request.getIsbn());
-
-        if (bookOptional.isEmpty()) {
-            Book savedBook = bookRepository.save(request.toEntity());
-            return savedBook;
-        } else {
-            return bookOptional.get();
-        }
+        return bookRepository.findByTitleAndIsbn(request.getTitle(), request.getIsbn())
+                .orElseGet(() -> bookRepository.save(request.toEntity()));
     }
 
     @Transactional(readOnly = true)

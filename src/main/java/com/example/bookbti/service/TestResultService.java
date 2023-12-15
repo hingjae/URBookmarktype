@@ -22,15 +22,30 @@ public class TestResultService {
 
     @Transactional
     public Long saveTestResult(SaveTestResultRequest request) {
-        Book book = bookService.saveBook(request.toSaveBookRequest());
-        BookmarkType bookmarkType = bookmarkTypeRepository.findByTypeCode(request.getTypeCode())
+        BookmarkType bookmarkType = bookmarkTypeRepository.findById(request.getResultTypeId())
                 .orElseThrow(EntityNotFoundException::new);
+        Book book = bookService.saveBook(request.toSaveBookRequest());
+//        return testResultRepository.save(
+//                TestResult.builder()
+//                        .book(book)
+//                        .bookmarkType(bookmarkType)
+//                        .build()
+//        ).getId();
+
+        TestResult testResult = testResultRepository.findByBookmarkTypeAndBook(bookmarkType, book)
+                .orElseGet(() -> saveTestResult(bookmarkType, book));
+        testResult.countIncrease();
+        return testResult.getId();
+    }
+
+    private TestResult saveTestResult(BookmarkType bookmarkType, Book book) {
         return testResultRepository.save(
                 TestResult.builder()
-                        .book(book)
                         .bookmarkType(bookmarkType)
+                        .book(book)
+                        .count(0)
                         .build()
-        ).getId();
+        );
     }
 
     @Transactional(readOnly = true)
