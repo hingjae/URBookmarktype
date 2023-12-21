@@ -5,24 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 public class SaveTestResultRequest {
-    private Long resultTypeId;
-    private String bookTitle;
-    private String bookPageUrl;
-    private String bookImageUrl;
-    private String bookAuthor;
-    private String bookIsbn;
-
-    public SaveBookRequest toSaveBookRequest() {
-        return SaveBookRequest.builder()
-                .title(bookTitle)
-                .pageUrl(bookPageUrl)
-                .imageUrl(bookImageUrl)
-                .author(bookAuthor)
-                .isbn(bookIsbn)
-                .build();
-    }
+    private Long bookmarkTypeId;
+    private List<SaveBookRequest> books;
 }

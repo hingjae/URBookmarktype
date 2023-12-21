@@ -12,15 +12,16 @@ public class BookResponse {
     private final String imageUrl;
     private final String author;
     private final String isbn;
-
+    private final String description;
     @Builder
-    private BookResponse(Long id, String title, String pageUrl, String imageUrl, String author, String isbn) {
+    private BookResponse(Long id, String title, String pageUrl, String imageUrl, String author, String isbn, String description) {
         this.id = id;
         this.title = title;
         this.pageUrl = pageUrl;
         this.imageUrl = imageUrl;
         this.author = author;
         this.isbn = isbn;
+        this.description = description;
     }
 
     public static BookResponse from(Book entity) {
@@ -31,6 +32,8 @@ public class BookResponse {
                 .imageUrl(entity.getImageUrl())
                 .author(entity.getAuthor())
                 .isbn(entity.getIsbn())
+                .description(entity.getDescription())
                 .build();
     }
+
 }

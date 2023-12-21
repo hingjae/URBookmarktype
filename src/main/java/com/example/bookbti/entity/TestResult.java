@@ -24,7 +24,7 @@ public class TestResult {
 
     //타입 별 책 개수 증가
     public void countIncrease() {
-        this.count = count + 1;
+        this.count = this.count + 1;
     }
 
     @Builder

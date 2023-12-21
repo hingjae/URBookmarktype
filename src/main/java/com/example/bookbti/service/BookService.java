@@ -18,10 +18,18 @@ import java.util.stream.Collectors;
 public class BookService {
     private final BookRepository bookRepository;
 
+    @Transactional(readOnly = true)
+    public Long getBooksCount() {
+        return bookRepository.count();
+    }
+
     @Transactional
-    public Book saveBook(SaveBookRequest request) {
-        return bookRepository.findByTitleAndIsbn(request.getTitle(), request.getIsbn())
-                .orElseGet(() -> bookRepository.save(request.toEntity()));
+    public List<Book> saveBook(List<SaveBookRequest> request) {
+        return request.stream()
+                .map(book -> bookRepository.findByTitleAndIsbn(book.getTitle(), book.getIsbn())
+                                .orElseGet(() -> bookRepository.save(book.toEntity()))
+                )
+                .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)

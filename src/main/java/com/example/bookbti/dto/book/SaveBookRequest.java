@@ -14,14 +14,16 @@ public class SaveBookRequest {
     private String imageUrl;
     private String author;
     private String isbn;
+    private String description;
 
     @Builder
-    public SaveBookRequest(String title, String pageUrl, String imageUrl, String author, String isbn) {
+    public SaveBookRequest(String title, String pageUrl, String imageUrl, String author, String isbn, String description) {
         this.title = title;
         this.pageUrl = pageUrl;
         this.imageUrl = imageUrl;
         this.author = author;
         this.isbn = isbn;
+        this.description = description;
     }
 
     public Book toEntity() {
@@ -31,6 +33,7 @@ public class SaveBookRequest {
                 .imageUrl(imageUrl)
                 .author(author)
                 .isbn(isbn)
+                .description(description)
                 .build();
     }
 }

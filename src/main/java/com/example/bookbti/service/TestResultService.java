@@ -12,6 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RequiredArgsConstructor
 @Service
 public class TestResultService {
@@ -21,21 +24,23 @@ public class TestResultService {
     private final TestResultRepository testResultRepository;
 
     @Transactional
-    public Long saveTestResult(SaveTestResultRequest request) {
-        BookmarkType bookmarkType = bookmarkTypeRepository.findById(request.getResultTypeId())
+    public List<Long> saveTestResult(SaveTestResultRequest request) {
+        BookmarkType bookmarkType = bookmarkTypeRepository.findById(request.getBookmarkTypeId())
                 .orElseThrow(EntityNotFoundException::new);
-        Book book = bookService.saveBook(request.toSaveBookRequest());
-//        return testResultRepository.save(
-//                TestResult.builder()
-//                        .book(book)
-//                        .bookmarkType(bookmarkType)
-//                        .build()
-//        ).getId();
+        List<Book> books = bookService.saveBook(request.getBooks());
 
-        TestResult testResult = testResultRepository.findByBookmarkTypeAndBook(bookmarkType, book)
-                .orElseGet(() -> saveTestResult(bookmarkType, book));
-        testResult.countIncrease();
-        return testResult.getId();
+        //        TestResult testResult = testResultRepository.findByBookmarkTypeAndBook(bookmarkType, book)
+//                .orElseGet(() -> saveTestResult(bookmarkType, book));
+//        testResult.countIncrease();
+        return books.stream()
+                .map(book -> {
+                            TestResult testResult = testResultRepository.findByBookmarkTypeAndBook(bookmarkType, book)
+                                    .orElseGet(() -> saveTestResult(bookmarkType, book));
+                            testResult.countIncrease();
+                            return testResult.getId();
+                        }
+                )
+                .collect(Collectors.toList());
     }
 
     private TestResult saveTestResult(BookmarkType bookmarkType, Book book) {
@@ -49,7 +54,12 @@ public class TestResultService {
     }
 
     @Transactional(readOnly = true)
-    public BookmarkTypeAndBookListResponse getTestResult(String typeCode) {
+    public BookmarkTypeAndBookListResponse getTestResult(Long bookmarkId) {
         return null;
+    }
+
+    @Transactional(readOnly = true)
+    public Long getCount() {
+        return testResultRepository.count();
     }
 }
