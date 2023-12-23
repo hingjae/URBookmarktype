@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>홈</title>
 </head>
 <body>
-<h1></h1>
+<h1 th:text="'책 개수 ' + ${bookCount}"></h1>
+<!--todo: 고치기-->
+<h1 th:text="'테스트 개수 ' + ${testResultCount}"></h1>
+<div>
+    <a href="/questions">시작</a>
+</div>
+
 </body>
 </html>

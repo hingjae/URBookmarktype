@@ -1,4 +1,4 @@
-package com.example.bookbti.dto.testresult;
+package com.example.bookbti.dto.bookmarkbookmapping;
 
 import com.example.bookbti.dto.book.SaveBookRequest;
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class SaveTestResultRequest {
-    private Long bookmarkTypeId;
+public class BookmarkBookMappingRequest {
+    private String bookmarkTypeId;
     private List<SaveBookRequest> books;
 }

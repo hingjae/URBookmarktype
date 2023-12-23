@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface BookmarkTypeRepository extends JpaRepository<BookmarkType, Long> {
+public interface BookmarkTypeRepository extends JpaRepository<BookmarkType, String> {
     Optional<BookmarkType> findByTypeCode(String typeCode);
 }

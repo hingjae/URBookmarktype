@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class BookmarkType {
 
     @Id
-    private Long id;
+    private String id;
 
     @Column(nullable = false, unique = true) private String typeCode;
     @Column(nullable = false) private String nickname;

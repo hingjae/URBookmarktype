@@ -22,32 +22,10 @@ public class BookApiController {
     private final BookService bookService;
 
     @GetMapping("/count")
-    public Long getBooksCount() {
-        return bookService.getBooksCount();
-    }
-
-
-    @PostMapping
-    public ResponseEntity<List<Long>> saveBook(@RequestBody List<SaveBookRequest> request) {
-        List<Long> bookIds = bookService.saveBook(request).stream()
-                .map(Book::getId)
-                .collect(toList());
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(bookIds);
-    }
-
-    @GetMapping("/{bookId}")
-    public ResponseEntity<BookResponse> getBookById(@PathVariable Long bookId) {
-        BookResponse book = bookService.getBookById(bookId);
+    public ResponseEntity<Long> getBookCount() {
+        Long count = bookService.getCount();
         return ResponseEntity.ok()
-                .body(book);
-    }
-
-    @GetMapping
-    public ResponseEntity<List<BookResponse>> getBooksByTitle(String title) {
-        List<BookResponse> books = bookService.getBooksByTitle(title);
-        return ResponseEntity.ok()
-                .body(books);
+                .body(count);
     }
 
 }

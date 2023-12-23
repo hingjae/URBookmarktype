@@ -1,7 +1,6 @@
 package com.example.bookbti.dto.book;
 
 import com.example.bookbti.entity.Book;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
