@@ -21,7 +21,7 @@
     </style>
 </head>
 <body>
-<input id="bookmarkTypeId" type="hidden" th:value="${bookmarkTypeId}"/>
+<input id="bookmarkId" type="hidden" th:value="${bookmarkId}"/>
 <h2>도서 검색</h2>
 <!--return false;는 폼의 onsubmit 이벤트 핸들러에서 사용될 때, 이벤트의 기본 동작을 취소하는 역할을 합니다.
     폼의 onsubmit 이벤트는 일반적으로 폼을 제출(submit)할 때 발생하며,
@@ -61,7 +61,7 @@
 
         // DTO 생성
         var saveBookmarkBookMappingObj = {
-            bookmarkTypeId: document.getElementById('bookmarkTypeId').value,
+            bookmarkId: document.getElementById('bookmarkId').value,
             books: selectedRows
         };
 

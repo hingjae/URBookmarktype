@@ -34,7 +34,7 @@ public class BookmarkBookMappingService {
 
     @Transactional
     public List<Long> saveBookmarkBookMapping(BookmarkBookMappingRequest request) {
-        BookmarkType bookmarkType = bookmarkTypeRepository.findById(request.getBookmarkTypeId())
+        BookmarkType bookmarkType = bookmarkTypeRepository.findById(request.getBookmarkId())
                 .orElseThrow(EntityNotFoundException::new);
         List<Book> books = bookService.saveBook(request.getBooks());
         saveTestResult(bookmarkType);
@@ -69,10 +69,10 @@ public class BookmarkBookMappingService {
     }
 
     @Transactional(readOnly = true)
-    public BookmarkWithBestBooksResponse getBookmarkWithBestBook(String bookmarkTypeId) {
-        BookmarkType bookmarkType = bookmarkTypeRepository.findById(bookmarkTypeId)
+    public BookmarkWithBestBooksResponse getBookmarkWithBestBook(String bookmarkId) {
+        BookmarkType bookmarkType = bookmarkTypeRepository.findById(bookmarkId)
                 .orElseThrow(EntityNotFoundException::new);
-        List<BookmarkBookMappingResponse> bestBook = bookmarkBookMappingRepository.findBestBookByBookmarkId(bookmarkTypeId, PageRequest.of(FIRST_PAGE, SIZE_OF_BOOKS));
+        List<BookmarkBookMappingResponse> bestBook = bookmarkBookMappingRepository.findBestBookByBookmarkId(bookmarkId, PageRequest.of(FIRST_PAGE, SIZE_OF_BOOKS));
 
         return BookmarkWithBestBooksResponse.from(bookmarkType, bestBook);
     }

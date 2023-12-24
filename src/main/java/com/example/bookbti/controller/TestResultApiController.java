@@ -1,5 +1,6 @@
 package com.example.bookbti.controller;
 
+import com.example.bookbti.dto.testresult.TestResultCountResponse;
 import com.example.bookbti.service.TestResultService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +19,9 @@ public class TestResultApiController {
      * 테스트 참여 횟수
      */
     @GetMapping("/count")
-    public ResponseEntity<Long> getTestResultCount() {
+    public ResponseEntity<TestResultCountResponse> getTestResultCount() {
         Long count = testResultService.getCount();
         return ResponseEntity.ok()
-                .body(count);
+                .body(TestResultCountResponse.of(count));
     }
 }

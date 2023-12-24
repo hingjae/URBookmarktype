@@ -11,6 +11,6 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 public class BookmarkBookMappingRequest {
-    private String bookmarkTypeId;
+    private String bookmarkId;
     private List<SaveBookRequest> books;
 }

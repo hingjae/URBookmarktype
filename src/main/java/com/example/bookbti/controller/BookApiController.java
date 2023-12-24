@@ -1,5 +1,6 @@
 package com.example.bookbti.controller;
 
+import com.example.bookbti.dto.book.BookCountResponse;
 import com.example.bookbti.dto.book.BookResponse;
 import com.example.bookbti.dto.book.SaveBookRequest;
 import com.example.bookbti.entity.Book;
@@ -25,10 +26,10 @@ public class BookApiController {
      * 추천한 책 수
      */
     @GetMapping("/count")
-    public ResponseEntity<Long> getBookCount() {
+    public ResponseEntity<BookCountResponse> getBookCount() {
         Long count = bookService.getCount();
         return ResponseEntity.ok()
-                .body(count);
+                .body(BookCountResponse.of(count));
     }
 
 }

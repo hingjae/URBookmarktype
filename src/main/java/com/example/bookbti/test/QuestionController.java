@@ -32,8 +32,8 @@ public class QuestionController {
     }
 
     @PostMapping
-    public String postQuestions(@RequestParam String bookmarkTypeId, RedirectAttributes redirectAttributes) {
-        redirectAttributes.addAttribute("bookmarkTypeId", bookmarkTypeId);
+    public String postQuestions(@RequestParam String bookmarkId, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addAttribute("bookmarkId", bookmarkId);
         return "redirect:/book-search";
     }
 }

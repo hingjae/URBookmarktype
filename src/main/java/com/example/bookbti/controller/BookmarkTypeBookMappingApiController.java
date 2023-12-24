@@ -31,8 +31,8 @@ public class BookmarkTypeBookMappingApiController {
      * 책갈피 타입 별 책 Best 3을 반환
      */
     @GetMapping
-    public ResponseEntity<BookmarkWithBestBooksResponse> getBookmarkBookMapping(@RequestParam String bookmarkTypeId) {
-        BookmarkWithBestBooksResponse bookmarkWithBestBooks = bookmarkBookMappingService.getBookmarkWithBestBook(bookmarkTypeId);
+    public ResponseEntity<BookmarkWithBestBooksResponse> getBookmarkBookMapping(@RequestParam String bookmarkId) {
+        BookmarkWithBestBooksResponse bookmarkWithBestBooks = bookmarkBookMappingService.getBookmarkWithBestBook(bookmarkId);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(bookmarkWithBestBooks);
     }

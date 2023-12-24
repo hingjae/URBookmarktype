@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class BookSearchController {
 
     @GetMapping
-    public String bookSearchView(@RequestParam String bookmarkTypeId, Model model) {
-        model.addAttribute("bookmarkTypeId", bookmarkTypeId);
+    public String bookSearchView(@RequestParam String bookmarkId, Model model) {
+        model.addAttribute("bookmarkId", bookmarkId);
         return "book-search";
     }
 

@@ -21,7 +21,7 @@ public interface BookmarkBookMappingRepository extends JpaRepository<BookmarkBoo
             "INNER JOIN bbm.book b " +
             "WHERE bt.id = :id " +
             "ORDER BY bbm.count DESC ")
-    List<BookmarkBookMappingResponse> findBestBookByBookmarkId(@Param("id") String bookmarkTypeId, Pageable pageable);
+    List<BookmarkBookMappingResponse> findBestBookByBookmarkId(@Param("id") String bookmarkId, Pageable pageable);
 
 
 }

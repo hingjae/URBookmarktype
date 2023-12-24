@@ -17,8 +17,8 @@ public class BookmarkBookMappingController {
     private final BookmarkBookMappingService bookmarkBookMappingService;
 
     @GetMapping
-    public String getBookmarkWithBestBook(@RequestParam String bookmarkTypeId, Model model) {
-        BookmarkWithBestBooksResponse bookmarkWithBestBooks = bookmarkBookMappingService.getBookmarkWithBestBook(bookmarkTypeId);
+    public String getBookmarkWithBestBook(@RequestParam String bookmarkId, Model model) {
+        BookmarkWithBestBooksResponse bookmarkWithBestBooks = bookmarkBookMappingService.getBookmarkWithBestBook(bookmarkId);
         model.addAttribute("bookmarkImageUrl", bookmarkWithBestBooks.getBookmarkImageUrl());
         model.addAttribute("bookmarkNickname", bookmarkWithBestBooks.getBookmarkNickname());
         model.addAttribute("bookmarkDescription", bookmarkWithBestBooks.getBookmarkDescription());
