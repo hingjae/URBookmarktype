@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -15,7 +14,7 @@ public class NaverApiResponse {
     private int total;
     private int start;
     private int display;
-    private final List<ItemResponse> items = new ArrayList<>();
+    private List<ItemResponse> items;
     @Getter @Setter
     static class ItemResponse {
         private String title;
