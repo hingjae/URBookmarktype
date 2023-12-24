@@ -1,7 +1,7 @@
 package com.example.bookbti.controller;
 
 import com.example.bookbti.dto.bookmarkbookmapping.BookmarkBookMappingRequest;
-import com.example.bookbti.dto.bookmarkbookmapping.BookmarkBookMappingResponse;
+import com.example.bookbti.dto.bookmarkbookmapping.BookmarkWithBestBooksResponse;
 import com.example.bookbti.service.BookmarkBookMappingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,6 +17,9 @@ public class BookmarkTypeBookMappingApiController {
 
     private final BookmarkBookMappingService bookmarkBookMappingService;
 
+    /**
+     * 책갈피 타입과 책을 맵핑해서 저장
+     */
     @PostMapping
     public ResponseEntity<List<Long>> saveBookmarkBookMapping(@RequestBody BookmarkBookMappingRequest request) {
         List<Long> bookmarkBookMappingIds = bookmarkBookMappingService.saveBookmarkBookMapping(request);
@@ -24,9 +27,12 @@ public class BookmarkTypeBookMappingApiController {
                 .body(bookmarkBookMappingIds);
     }
 
+    /**
+     * 책갈피 타입 별 책 Best 3을 반환
+     */
     @GetMapping
-    public ResponseEntity<List<BookmarkBookMappingResponse>> getBookmarkBookMapping(@RequestParam String bookmarkTypeId) {
-        List<BookmarkBookMappingResponse> bookmarkWithBestBooks = bookmarkBookMappingService.getBookmarkWithBestBook(bookmarkTypeId);
+    public ResponseEntity<BookmarkWithBestBooksResponse> getBookmarkBookMapping(@RequestParam String bookmarkTypeId) {
+        BookmarkWithBestBooksResponse bookmarkWithBestBooks = bookmarkBookMappingService.getBookmarkWithBestBook(bookmarkTypeId);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(bookmarkWithBestBooks);
     }

@@ -15,13 +15,13 @@ import java.util.Optional;
 public interface BookmarkBookMappingRepository extends JpaRepository<BookmarkBookMapping, Long> {
     Optional<BookmarkBookMapping> findByBookmarkTypeAndBook(BookmarkType bookmarkType, Book book);
 
-    @Query("SELECT new com.example.bookbti.dto.bookmarkbookmapping.BookmarkBookMappingResponse(bt.imageUrl, bt.nickname, bt.description, b.id, b.title, b.pageUrl, b.imageUrl, b.author, b.isbn, b.description) " +
+    @Query("SELECT new com.example.bookbti.dto.bookmarkbookmapping.BookmarkBookMappingResponse(b.id, b.title, b.pageUrl, b.imageUrl, b.author, b.isbn, b.description, bbm.count) " +
             "FROM BookmarkBookMapping bbm " +
             "INNER JOIN bbm.bookmarkType bt " +
             "INNER JOIN bbm.book b " +
             "WHERE bt.id = :id " +
             "ORDER BY bbm.count DESC ")
-    List<BookmarkBookMappingResponse> findBookmarkWithBestBook(@Param("id") String bookmarkTypeId, Pageable pageable);
+    List<BookmarkBookMappingResponse> findBestBookByBookmarkId(@Param("id") String bookmarkTypeId, Pageable pageable);
 
 
 }

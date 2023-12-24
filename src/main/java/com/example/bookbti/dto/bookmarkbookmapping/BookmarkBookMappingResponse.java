@@ -8,9 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class BookmarkBookMappingResponse {
-    private String bookmarkTypeImageUrl;
-    private String bookmarkTypeNickname;
-    private String bookmarkTypeDescription;
     private Long bookId;
     private String bookTitle;
     private String bookPageUrl;
@@ -18,4 +15,5 @@ public class BookmarkBookMappingResponse {
     private String bookAuthor;
     private String bookIsbn;
     private String bookDescription;
+    private int count;
 }

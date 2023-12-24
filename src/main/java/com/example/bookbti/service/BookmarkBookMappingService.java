@@ -2,6 +2,7 @@ package com.example.bookbti.service;
 
 import com.example.bookbti.dto.bookmarkbookmapping.BookmarkBookMappingRequest;
 import com.example.bookbti.dto.bookmarkbookmapping.BookmarkBookMappingResponse;
+import com.example.bookbti.dto.bookmarkbookmapping.BookmarkWithBestBooksResponse;
 import com.example.bookbti.entity.Book;
 import com.example.bookbti.entity.BookmarkBookMapping;
 import com.example.bookbti.entity.BookmarkType;
@@ -68,8 +69,11 @@ public class BookmarkBookMappingService {
     }
 
     @Transactional(readOnly = true)
-    public List<BookmarkBookMappingResponse> getBookmarkWithBestBook(String bookmarkTypeId) {
-        return bookmarkBookMappingRepository
-                .findBookmarkWithBestBook(bookmarkTypeId, PageRequest.of(FIRST_PAGE, SIZE_OF_BOOKS));
+    public BookmarkWithBestBooksResponse getBookmarkWithBestBook(String bookmarkTypeId) {
+        BookmarkType bookmarkType = bookmarkTypeRepository.findById(bookmarkTypeId)
+                .orElseThrow(EntityNotFoundException::new);
+        List<BookmarkBookMappingResponse> bestBook = bookmarkBookMappingRepository.findBestBookByBookmarkId(bookmarkTypeId, PageRequest.of(FIRST_PAGE, SIZE_OF_BOOKS));
+
+        return BookmarkWithBestBooksResponse.from(bookmarkType, bestBook);
     }
 }

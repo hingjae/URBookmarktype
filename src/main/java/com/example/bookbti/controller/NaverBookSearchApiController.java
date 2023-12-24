@@ -26,6 +26,9 @@ public class NaverBookSearchApiController {
     private static final String NAVER_CLIENT_ID = "X-Naver-Client-Id";
     private static final String NAVER_CLIENT_SECRET = "X-Naver-Client-Secret";
 
+    /**
+     * 네이버 검색 api로 책 검색
+     */
     @GetMapping
     public ResponseEntity<NaverApiResponse> searchBookByParam(String param) throws UnsupportedEncodingException {
         URI uri = UriComponentsBuilder.fromHttpUrl(naverProperties.getUrl())

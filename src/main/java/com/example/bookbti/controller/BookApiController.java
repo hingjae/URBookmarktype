@@ -21,6 +21,9 @@ public class BookApiController {
 
     private final BookService bookService;
 
+    /**
+     * 추천한 책 수
+     */
     @GetMapping("/count")
     public ResponseEntity<Long> getBookCount() {
         Long count = bookService.getCount();
