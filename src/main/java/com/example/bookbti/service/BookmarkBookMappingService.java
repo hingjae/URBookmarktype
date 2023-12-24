@@ -1,5 +1,6 @@
 package com.example.bookbti.service;
 
+import com.example.bookbti.dto.book.SaveBookRequest;
 import com.example.bookbti.dto.bookmarkbookmapping.BookmarkBookMappingRequest;
 import com.example.bookbti.dto.bookmarkbookmapping.BookmarkBookMappingResponse;
 import com.example.bookbti.dto.bookmarkbookmapping.BookmarkWithBestBooksResponse;
@@ -36,18 +37,23 @@ public class BookmarkBookMappingService {
     public List<Long> saveBookmarkBookMapping(BookmarkBookMappingRequest request) {
         BookmarkType bookmarkType = bookmarkTypeRepository.findById(request.getBookmarkId())
                 .orElseThrow(EntityNotFoundException::new);
-        List<Book> books = bookService.saveBook(request.getBooks());
         saveTestResult(bookmarkType);
+        List<SaveBookRequest> saveBookRequests = request.getBooks();
+        if (saveBookRequests.isEmpty()) {
+            return List.of();
+        } else {
+            List<Book> books = bookService.saveBook(saveBookRequests);
+            return books.stream()
+                    .map(book -> {
+                                BookmarkBookMapping bookmarkBookMapping = bookmarkBookMappingRepository.findByBookmarkTypeAndBook(bookmarkType, book)
+                                        .orElseGet(() -> saveBookmarkBookMapping(bookmarkType, book));
+                                bookmarkBookMapping.countIncrease();
+                                return bookmarkBookMapping.getId();
+                            }
+                    )
+                    .collect(Collectors.toList());
+        }
 
-        return books.stream()
-                .map(book -> {
-                            BookmarkBookMapping bookmarkBookMapping = bookmarkBookMappingRepository.findByBookmarkTypeAndBook(bookmarkType, book)
-                                    .orElseGet(() -> saveBookmarkBookMapping(bookmarkType, book));
-                            bookmarkBookMapping.countIncrease();
-                            return bookmarkBookMapping.getId();
-                        }
-                )
-                .collect(Collectors.toList());
     }
 
     private void saveTestResult(BookmarkType bookmarkType) {
