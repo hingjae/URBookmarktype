@@ -9,14 +9,10 @@ spring:
         format_sql: true
         default_batch_fetch_size: 100
     hibernate:
-      ddl-auto: validate
-    defer-datasource-initialization: true
+      ddl-auto: none
   h2:
     console:
       enabled: true
-  sql:
-    init:
-      mode: always
 
 naver:
   url: https://openapi.naver.com/v1/search/book.json
