@@ -1,7 +1,9 @@
 spring:
   datasource:
-    url: jdbc:h2:tcp://localhost/~/book_bti_test
-    username: sa
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql: true
     properties:
@@ -11,9 +13,6 @@ spring:
     hibernate:
       ddl-auto: none
 #    defer-datasource-initialization: true
-  h2:
-    console:
-      enabled: true
 #  sql:
 #    init:
 #      mode: always
