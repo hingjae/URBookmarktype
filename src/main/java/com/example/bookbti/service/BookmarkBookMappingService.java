@@ -43,6 +43,10 @@ public class BookmarkBookMappingService {
             return List.of();
         } else {
             List<Book> books = bookService.saveBook(saveBookRequests);
+            // 예외 추가
+            if (saveBookRequests.size() > 3) {
+                throw new RuntimeException();
+            }
             return books.stream()
                     .map(book -> {
                                 BookmarkBookMapping bookmarkBookMapping = bookmarkBookMappingRepository.findByBookmarkTypeAndBook(bookmarkType, book)
