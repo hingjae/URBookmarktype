@@ -8,6 +8,7 @@ import com.example.bookbti.entity.Book;
 import com.example.bookbti.entity.BookmarkBookMapping;
 import com.example.bookbti.entity.BookmarkType;
 import com.example.bookbti.entity.TestResult;
+import com.example.bookbti.exception.BookLimitExceededException;
 import com.example.bookbti.repository.BookmarkBookMappingRepository;
 import com.example.bookbti.repository.BookmarkTypeRepository;
 import com.example.bookbti.repository.TestResultRepository;
@@ -31,7 +32,8 @@ public class BookmarkBookMappingService {
     private final TestResultRepository testResultRepository;
 
     private static final int FIRST_PAGE = 0;
-    private static final int SIZE_OF_BOOKS = 3;
+    private static final int SIZE_OF_BOOKS = 10;
+    private static final int MAX_BOOKS_ALLOWED = 3;
 
     @Transactional
     public List<Long> saveBookmarkBookMapping(BookmarkBookMappingRequest request) {
@@ -44,8 +46,8 @@ public class BookmarkBookMappingService {
         } else {
             List<Book> books = bookService.saveBook(saveBookRequests);
             // 예외 추가
-            if (saveBookRequests.size() > 3) {
-                throw new RuntimeException();
+            if (saveBookRequests.size() > MAX_BOOKS_ALLOWED) {
+                throw new BookLimitExceededException();
             }
             return books.stream()
                     .map(book -> {
