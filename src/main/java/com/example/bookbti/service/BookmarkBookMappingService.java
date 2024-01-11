@@ -45,7 +45,7 @@ public class BookmarkBookMappingService {
             return List.of();
         } else {
             List<Book> books = bookService.saveBook(saveBookRequests);
-            // 예외 추가
+            // 책 선택 개수 초과
             if (saveBookRequests.size() > MAX_BOOKS_ALLOWED) {
                 throw new BookLimitExceededException();
             }
