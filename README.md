@@ -13,6 +13,3 @@
 - JPA
 - AWS
 - Naver 책 검색 API 
-
-### 도메인
-<https://urbookmarktype.swygbro.com>
